@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const { Circle, Square, Triangle } = require('./lib/shapes');
 
 // Prompts for user input
 const promptUser = () => {
@@ -38,16 +39,19 @@ const generateLogo = (data) => {
     let shapeElement = '';
 
     if (shape === 'Circle') {
-        shapeElement = `<circle cx="150" cy="100" r="50" fill="${shapeColor}" />`;
+        const circle = new Circle(shapeColor);
+        shapeElement = circle.getSvgElement();
     } else if (shape === 'Triangle') {
-        shapeElement = `<polygon points="150,20 280,180 20,180" fill="${shapeColor}" />`;
+        const triangle = new Triangle(shapeColor);
+        shapeElement = triangle.getSvgElement();
     } else if (shape === 'Square') {
-        shapeElement = `<rect x="75" y="50" width="150" height="100" fill="${shapeColor}" />`;
+        const square = new Square(shapeColor);
+        shapeElement = square.getSvgElement();
     }
 
     const svgTemplate = `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200">
-      ${shapeElement}
-      <text x="50%" y="50%" text-anchor="middle" alignment-baseline="central" fill="${textColor}" font-size="80">${text}</text>
+        ${shapeElement}
+        <text x="50%" y="50%" text-anchor="middle" fill="${textColor}" font-size="40">${text}</text>
     </svg>`;
 
     return svgTemplate;
